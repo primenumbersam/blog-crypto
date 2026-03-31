@@ -1,5 +1,4 @@
 {
-  "_comment": "Hobby Plan limits cron jobs to once per day. For Pro Plan (Hourly), use '0 * * * *' for kimp and '5 * * * *' for news.",
   "crons": [
     {
       "path": "/api/kimp",
