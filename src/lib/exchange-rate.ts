@@ -4,7 +4,8 @@ export async function getExchangeRate() {
 
   // 1. Try real-time endpoints for precise and frequent updates
   const endpoints = [
-    "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD", // Upbit's actual standard
+    "https://api.manana.kr/exchange/rate/KRW/USD.json", // Reliable Korean source
+    "https://quotation-api-cdn.dunamu.com/v1/forex/recent?codes=FRX.KRWUSD", // Upbit's source
     "https://cdn.jsdelivr.net/npm/@fawazahmed0/currency-api@latest/v1/currencies/usd.json",
     apiKey ? `https://v6.exchangerate-api.com/v6/${apiKey}/latest/USD` : null,
     "https://open.er-api.com/v6/latest/USD"
@@ -13,10 +14,10 @@ export async function getExchangeRate() {
   for (const url of endpoints) {
     try {
       const response = await fetch(url, {
-        next: { revalidate: 600 }, // Cache for 10 minutes instead of 1 hour for fresher data
+        next: { revalidate: 300 }, // Cache for 5 minutes instead of 1 hour
         signal: (AbortSignal as any).timeout(5000), // 5s timeout
         headers: {
-          "User-Agent": "Mozilla/5.0" // Required by some APIs
+          "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36"
         }
       });
 
@@ -27,10 +28,11 @@ export async function getExchangeRate() {
       let lastUpdate = new Date().toISOString();
 
       // Parse depending on which API succeeded
-      if (url.includes("dunamu")) {
+      if (url.includes("manana")) {
+        rate = data[0]?.rate;
+      } else if (url.includes("dunamu")) {
         rate = data[0]?.basePrice;
         if (data[0]?.date && data[0]?.time) {
-          // Dunamu gives date "2026-04-01", time "14:40:00"
           lastUpdate = `${data[0].date}T${data[0].time}Z`;
         }
       } else if (url.includes("fawazahmed0")) {

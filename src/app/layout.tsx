@@ -46,7 +46,7 @@ export const metadata = {
   },
 };
 
-export const revalidate = 3600; // Cache the Root Layout for 1 hour
+export const revalidate = 300; // 5-minute cache for Root Layout
 
 import { SEO } from "@/components/SEO";
 

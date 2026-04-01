@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { KIMP_SYMBOLS, KIMP_MAPPING } from "@/lib/kimp-constants";
 import { getExchangeRate } from "@/lib/exchange-rate";
 
-export const revalidate = 3600; // Cache the API response for 1 hour
+export const revalidate = 300; // 5-minute cache for API response
 
 export async function GET() {
   try {
@@ -14,7 +14,7 @@ export async function GET() {
     const upbitMarkets = KIMP_SYMBOLS.map((s) => KIMP_MAPPING[s].upbit).join(",");
     const upbitTickersRes = await fetch(
       `https://api.upbit.com/v1/ticker?markets=${upbitMarkets}`,
-      { next: { revalidate: 3600 } }
+      { next: { revalidate: 300 } }
     );
     if (!upbitTickersRes.ok) throw new Error("Upbit API Error");
     const upbitTickersText = await upbitTickersRes.text();
@@ -40,7 +40,7 @@ export async function GET() {
     for (const endpoint of binanceEndpoints) {
       try {
         const binanceTickersRes = await fetch(endpoint, { 
-          next: { revalidate: 3600 },
+          next: { revalidate: 60 },
           signal: (AbortSignal as any).timeout(5000) // 5초 타임아웃
         });
         if (binanceTickersRes.ok) {
