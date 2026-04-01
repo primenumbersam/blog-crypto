@@ -17,7 +17,7 @@ export default function IndicatorsPage() {
             <LayoutDashboard className="w-8 h-8 text-primary" /> 시장 지표
           </h1>
           <p className="text-muted-foreground mt-2">
-            가상자산, 글로벌 지수, 상품 및 환율 지표를 한눈에 모니터링합니다.
+            주요 자산별 지수/지표 모니터링 터미널
           </p>
         </div>
 
@@ -46,7 +46,7 @@ export default function IndicatorsPage() {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-blue-500" /> 종합 시장 요약
+              <BarChart3 className="w-5 h-5 text-blue-500" /> Market Overview
             </h2>
             <div className="h-[500px] w-full bg-card/50 border border-border/50 rounded-xl overflow-hidden shadow-sm">
               <MarketOverviewWidget />
@@ -55,7 +55,7 @@ export default function IndicatorsPage() {
 
           <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
-              <Search className="w-5 h-5 text-green-500" /> 주요 지수 및 원자재 시세
+              <Search className="w-5 h-5 text-green-500" /> Market Data
             </h2>
             <div className="h-[500px] w-full bg-card/50 border border-border/50 rounded-xl overflow-hidden shadow-sm">
               <MarketQuotesWidget />
@@ -67,18 +67,18 @@ export default function IndicatorsPage() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
           <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
-                <Globe className="w-5 h-5 text-green-500" /> Forex Heatmap
+              <Globe className="w-5 h-5 text-green-500" /> Forex Heatmap
             </h2>
             <div className="flex flex-col h-[400px]">
-                <ForexHeatMapWidget />
+              <ForexHeatMapWidget />
             </div>
           </div>
           <div className="space-y-4">
             <h2 className="text-xl font-bold flex items-center gap-2">
-                <LayoutDashboard className="w-5 h-5 text-primary" /> Economic Map
+              <LayoutDashboard className="w-5 h-5 text-primary" /> Economic Map
             </h2>
             <div className="flex flex-col h-[400px]">
-                <EconomicMapWidget />
+              <EconomicMapWidget />
             </div>
           </div>
         </div>

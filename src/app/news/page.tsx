@@ -37,8 +37,8 @@ export default function NewsPage() {
     setExpandedItems(newExpanded);
   };
 
-  const filteredNews = activeTab === 'all' 
-    ? news 
+  const filteredNews = activeTab === 'all'
+    ? news
     : news.filter(item => item.source === activeTab);
 
   if (isLoading) {
@@ -73,8 +73,8 @@ export default function NewsPage() {
             <Newspaper className="w-7 h-7 text-primary" />
           </div>
           <div>
-            <h1 className="text-3xl font-extrabold tracking-tight">실시간 소식</h1>
-            <p className="text-sm text-muted-foreground mt-0.5">글로벌 및 국내 암호화폐 시장 속보</p>
+            <h1 className="text-2xl font-extrabold tracking-tight">실시간 소식</h1>
+            <p className="text-sm text-muted-foreground mt-0.5">암호화폐/주식 시장뉴스</p>
           </div>
         </div>
 
@@ -85,9 +85,9 @@ export default function NewsPage() {
               key={tab.id}
               onClick={() => setActiveTab(tab.id as any)}
               className={cn(
-                "px-4 py-2 rounded-full text-sm font-medium transition-all whitespace-nowrap border",
-                activeTab === tab.id 
-                  ? "bg-primary text-primary-foreground border-primary shadow-sm" 
+                "px-2 py-1 rounded-full text-xs font-sm transition-all whitespace-nowrap border",
+                activeTab === tab.id
+                  ? "bg-primary text-primary-foreground border-primary shadow-sm"
                   : "bg-muted/50 text-muted-foreground border-border hover:bg-muted"
               )}
             >
@@ -127,16 +127,16 @@ export default function NewsPage() {
                 isExpanded && "ring-1 ring-primary/20 bg-muted/20"
               )}
             >
-              <div 
+              <div
                 className="p-5 cursor-pointer select-none"
                 onClick={() => toggleExpand(item.id)}
               >
                 <div className="flex items-start gap-4">
                   {item.image && (
                     <div className="hidden sm:block flex-shrink-0 w-24 h-24 rounded-lg overflow-hidden border border-border/30">
-                      <img 
-                        src={item.image} 
-                        alt="" 
+                      <img
+                        src={item.image}
+                        alt=""
                         className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
                         onError={(e) => (e.currentTarget.style.display = 'none')}
                       />
@@ -158,7 +158,7 @@ export default function NewsPage() {
                     </div>
 
                     <h2 className={cn(
-                      "text-lg font-bold leading-snug group-hover:text-primary transition-colors",
+                      "text-sm font-bold leading-snug group-hover:text-primary transition-colors",
                       !isExpanded && "line-clamp-2"
                     )}>
                       {item.title}

@@ -12,7 +12,7 @@ export default function KimpPage() {
             <h1 className="text-2xl font-black tracking-tighter flex items-center gap-3">
               <Zap className="w-10 h-10 text-primary fill-primary/10" /> 김치 프리미엄
             </h1>
-            <p className="text-muted-foreground text-lg">
+            <p className="text-muted-foreground text-sm">
               비교 거래소: 업비트(KRW) vs. 바이낸스 (USD)
             </p>
           </div>
@@ -20,9 +20,9 @@ export default function KimpPage() {
 
         <Card className="border-none shadow-none bg-transparent">
           <CardHeader className="px-0">
-            <CardTitle>코인+토큰 시장 요약</CardTitle>
+            <CardTitle>Crypto Collectibles</CardTitle>
             <CardDescription>
-              BTC, ETH를 포함한 주요 자산들의 김프 현황. 갱신주기는 1시간.
+              주요 코인+토큰 김프/마프 현황. 갱신주기는 1시간.
             </CardDescription>
           </CardHeader>
           <CardContent className="px-0">

@@ -10,7 +10,7 @@ import {
 } from "@/components/ui/table";
 import SparklineChart from "@/components/charts/sparkline-chart";
 import { Skeleton } from "@/components/ui/skeleton";
-import { TrendingUp, TrendingDown, Minus, Info, ChevronUp, ChevronDown, ArrowUpDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Minus, Info, ChevronUp, ChevronDown, ArrowUpDown, ChevronRight } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { KIMP_MAPPING, KimpSymbol } from "@/lib/kimp-constants";
 import Link from "next/link";
@@ -189,12 +189,18 @@ export default function KimpTable() {
                     <TableCell className="font-bold pl-4 md:pl-6 text-xs md:text-sm">
                       <button
                         onClick={() => toggleExpand(item.symbol)}
-                        className="hover:text-primary transition-colors flex flex-col md:flex-row md:items-center text-left"
+                        className="hover:text-primary transition-colors flex items-center text-left gap-2 group"
                       >
-                        <span>{item.symbol}</span>
-                        <span className="text-[10px] font-normal text-muted-foreground md:ml-1 md:text-xs">
-                          {mapping?.nameKo ? `(${mapping.nameKo})` : ""}
-                        </span>
+                        <ChevronRight 
+                          size={14} 
+                          className={`text-muted-foreground/50 group-hover:text-primary transition-transform duration-200 ${isExpanded ? 'rotate-90 text-primary' : ''}`} 
+                        />
+                        <div className="flex flex-col md:flex-row md:items-center">
+                          <span>{item.symbol}</span>
+                          <span className="text-[10px] font-normal text-muted-foreground md:ml-1 md:text-xs">
+                            {mapping?.nameKo ? `(${mapping.nameKo})` : ""}
+                          </span>
+                        </div>
                       </button>
                     </TableCell>
                     <TableCell className="text-right font-mono font-medium text-xs md:text-sm px-2">
