@@ -23,7 +23,7 @@ export const metadata = {
   },
   openGraph: {
     title: "느좋 코린 - 광고 없이 깨끗한 퀀트 터미널",
-    description: "생각은 깊게, 구현은 쉽게. 데이터 독점에서 벗어나 나만의 인프라로 구축하는 실시간 암호화폐 지표 대시보드.",
+    description: "생각은 깊게, 구현은 쉽게. 주요 투자지표 현황판.",
     url: "https://primenumbersam.vercel.app",
     siteName: "느좋 코린",
     images: [
@@ -45,6 +45,8 @@ export const metadata = {
     icon: "/favicon.png",
   },
 };
+
+export const revalidate = 3600; // Cache the Root Layout for 1 hour
 
 import { SEO } from "@/components/SEO";
 

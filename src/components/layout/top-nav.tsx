@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Menu, X, Newspaper, LayoutDashboard, Globe, ChevronRight } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
@@ -14,7 +14,26 @@ interface TopNavProps {
 
 export function TopNav({ exchangeRate: initialExchangeRate }: TopNavProps) {
   const [isOpen, setIsOpen] = useState(false);
-  const [exchangeRate] = useState(initialExchangeRate); // For now, simple state
+  const [exchangeRate, setExchangeRate] = useState(initialExchangeRate);
+
+  useEffect(() => {
+    // 만약 서버에서 준 값이 있더라도, 클라이언트에서 한 번 더 최신화
+    const fetchFreshRate = async () => {
+      try {
+        const res = await fetch("/api/kimp");
+        const json = await res.json();
+        if (json.rate) {
+          setExchangeRate(json.rate);
+        }
+      } catch (e) {
+        console.error("Failed to fetch fresh rate in top-nav", e);
+      }
+    };
+    
+    // 페이지 로드 1초 후 반영 (초기 수화 안정성 위해)
+    const timer = setTimeout(fetchFreshRate, 1000);
+    return () => clearTimeout(timer);
+  }, []);
 
   const toggleMenu = () => setIsOpen(!isOpen);
 

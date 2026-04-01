@@ -21,6 +21,26 @@ export default function IndicatorsPage() {
           </p>
         </div>
 
+        {/* Forex & Economic Maps */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <Globe className="w-5 h-5 text-green-500" /> Forex Heatmap
+            </h2>
+            <div className="flex flex-col h-[400px]">
+              <ForexHeatMapWidget />
+            </div>
+          </div>
+          <div className="space-y-4">
+            <h2 className="text-xl font-bold flex items-center gap-2">
+              <LayoutDashboard className="w-5 h-5 text-primary" /> Economic Map
+            </h2>
+            <div className="flex flex-col h-[400px]">
+              <EconomicMapWidget />
+            </div>
+          </div>
+        </div>
+
         {/* Heatmaps Section */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
           <div className="space-y-4">
@@ -63,25 +83,6 @@ export default function IndicatorsPage() {
           </div>
         </div>
 
-        {/* Forex & Economic Maps */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-10">
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <Globe className="w-5 h-5 text-green-500" /> Forex Heatmap
-            </h2>
-            <div className="flex flex-col h-[400px]">
-              <ForexHeatMapWidget />
-            </div>
-          </div>
-          <div className="space-y-4">
-            <h2 className="text-xl font-bold flex items-center gap-2">
-              <LayoutDashboard className="w-5 h-5 text-primary" /> Economic Map
-            </h2>
-            <div className="flex flex-col h-[400px]">
-              <EconomicMapWidget />
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   );
