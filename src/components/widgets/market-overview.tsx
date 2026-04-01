@@ -8,7 +8,7 @@ function MarketOverviewWidget() {
   useEffect(
     () => {
       if (!container.current) return;
-      
+
       const script = document.createElement("script");
       script.src = "https://s3.tradingview.com/external-embedding/embed-widget-market-overview.js";
       script.type = "text/javascript";
@@ -50,29 +50,6 @@ function MarketOverviewWidget() {
                 }
               ],
               "originalTitle": "Indices"
-            },
-            {
-              "title": "KR",
-              "symbols": [
-                {
-                  "s": "KRX:KOSPI2",
-                  "d": "코스피 대형주",
-                  "logoid": "indices/korea-composite-index",
-                  "currency-logoid": "country/KR"
-                },
-                {
-                  "s": "KRX:KOSDAQ",
-                  "d": "코스닥",
-                  "logoid": "indices/kosdaq",
-                  "currency-logoid": "country/KR"
-                },
-                {
-                  "s": "TVC:KOSPI",
-                  "d": "코스피",
-                  "logoid": "indices/korea-composite-index",
-                  "currency-logoid": "country/KR"
-                }
-              ]
             },
             {
               "title": "Commodity",

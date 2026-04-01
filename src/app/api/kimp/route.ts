@@ -2,7 +2,7 @@ import { NextResponse } from "next/server";
 import { KIMP_SYMBOLS, KIMP_MAPPING } from "@/lib/kimp-constants";
 import { getExchangeRate } from "@/lib/exchange-rate";
 
-export const revalidate = 60; // Cache the API response for 60 seconds
+export const revalidate = 3600; // Cache the API response for 1 hour
 
 export async function GET() {
   try {
@@ -14,8 +14,9 @@ export async function GET() {
     const upbitMarkets = KIMP_SYMBOLS.map((s) => KIMP_MAPPING[s].upbit).join(",");
     const upbitTickersRes = await fetch(
       `https://api.upbit.com/v1/ticker?markets=${upbitMarkets}`,
-      { next: { revalidate: 10 } }
+      { next: { revalidate: 3600 } }
     );
+    if (!upbitTickersRes.ok) throw new Error("Upbit API Error");
     const upbitTickersText = await upbitTickersRes.text();
     let upbitTickersArray: any[] = [];
     try {
@@ -29,8 +30,9 @@ export async function GET() {
     // 3. 바이낸스 티커 한 번에 가져오기
     const binanceTickersRes = await fetch(
       `https://api.binance.com/api/v3/ticker/24hr`,
-      { next: { revalidate: 10 } }
+      { next: { revalidate: 3600 } }
     );
+    if (!binanceTickersRes.ok) throw new Error("Binance API Error");
     const binanceTickersText = await binanceTickersRes.text();
     let binanceTickersArray: any[] = [];
     try {
@@ -121,6 +123,11 @@ export async function GET() {
         low52Diff: low52 > 0 ? ((upbitPrice / low52) - 1) * 100 : 0,
       });
     }
+    
+    // 만약 데이터가 너무 부실하게 만들어졌다면 throw하여 ISR이 이전 캐시를 재사용하도록 함
+    if (kimpData.length === 0) {
+      throw new Error("Empty kimp data generated");
+    }
 
     return NextResponse.json({
       data: kimpData,
@@ -129,9 +136,7 @@ export async function GET() {
     });
   } catch (error) {
     console.error("Kimp API Error:", error);
-    return NextResponse.json(
-      { error: "Failed to fetch kimp data", message: error instanceof Error ? error.message : "Unknown error" },
-      { status: 500 }
-    );
+    // ISR이 동작할 때 강제로 Error를 발생시키면 Next.js는 이전(Stale) 캐시를 그대로 반환합니다.
+    throw error;
   }
 }
