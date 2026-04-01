@@ -136,7 +136,7 @@ export async function GET() {
     return NextResponse.json({
       data: kimpData,
       rate,
-      lastUpdate: new Date().toISOString(),
+      lastUpdate: exchangeRateData?.lastUpdate || new Date().toISOString(),
     });
   } catch (error) {
     console.error("Kimp API Error:", error);

@@ -69,7 +69,7 @@ export default function Home() {
         {/* 1. Crypto Section */}
         <div className="space-y-4 mb-10">
           <h2 className="text-xl font-bold flex items-center gap-2">
-            <Coins className="w-5 h-5 text-yellow-500" /> 가상자산 지표
+            <Coins className="w-5 h-5 text-yellow-500" /> 가상자산 후행지표
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -77,7 +77,7 @@ export default function Home() {
             <Card className="bg-card/50 border-border/50 shadow-sm overflow-hidden flex flex-col">
               <CardHeader className="pb-2">
                 <CardTitle className="text-sm font-medium flex items-center gap-2">
-                  <BarChart className="w-4 h-4 text-orange-500" /> 실시간 주요 시세
+                  <BarChart className="w-4 h-4 text-orange-500" /> 실시간 시세
                 </CardTitle>
               </CardHeader>
               <CardContent className="flex-1 p-0 overflow-auto border-t border-border/20">
