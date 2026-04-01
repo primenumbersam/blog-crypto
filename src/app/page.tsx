@@ -24,8 +24,8 @@ const indicatorLinks = [
   // Group 2: BTC On-chain Metrics (Pro Indicators)
   { name: "4-Year Moving Average", url: "https://www.coinglass.com/pro/i/four-year-moving-average", group: "On-chain" },
   { name: "MVRV Ratio", url: "https://www.coinglass.com/pro/i/mvrv-ratio", group: "On-chain" },
-  { name: "LTH-MVRV (Long-term Holder)", url: "https://www.coinglass.com/pro/i/long-term-holder-mvrv", group: "On-chain" },
-  { name: "STH-MVRV (Short-term Holder)", url: "https://www.coinglass.com/pro/i/short-term-holder-mvrv", group: "On-chain" },
+  { name: "LTH-MVRV", url: "https://www.coinglass.com/pro/i/long-term-holder-mvrv", group: "On-chain" },
+  { name: "STH-MVRV", url: "https://www.coinglass.com/pro/i/short-term-holder-mvrv", group: "On-chain" },
   { name: "LTH-Supply", url: "https://www.coinglass.com/pro/i/long-term-holder-supply", group: "On-chain" },
   { name: "LTH-SOPR", url: "https://www.coinglass.com/pro/i/long-term-holder-sopr", group: "On-chain" },
 ];
@@ -131,7 +131,7 @@ export default function Home() {
           {/* On-chain Metrics Links */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2 px-1">
-              <ShieldCheck className="w-5 h-5 text-green-500" /> 온체인 데이터 (Pro)
+              <ShieldCheck className="w-5 h-5 text-green-500" /> 온체인 분석 (Pro)
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {onChainLinks.map((link) => (
