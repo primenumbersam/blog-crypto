@@ -27,33 +27,31 @@ export async function GET() {
     }
     const upbitTickersMap = new Map(upbitTickersArray.map((t) => [t.market, t]));
 
-    // 3. 바이낸스 티커 한 번에 가져오기
-    const binanceTickersRes = await fetch(
-      `https://api.binance.com/api/v3/ticker/24hr`,
-      { next: { revalidate: 3600 } }
-    );
-    let binanceTickersArray: any[] = [];
-    if (binanceTickersRes.ok) {
-      const binanceTickersText = await binanceTickersRes.text();
+    // 3. 바이낸스 티커 가져오기 (멀티 엔드포인트 지원으로 안정성 강화)
+    let binanceTickersMap = new Map();
+    const binanceEndpoints = [
+      "https://api1.binance.com/api/v3/ticker/price",
+      "https://api2.binance.com/api/v3/ticker/price",
+      "https://api3.binance.com/api/v3/ticker/price",
+      "https://api.binance.com/api/v3/ticker/price"
+    ];
+
+    for (const endpoint of binanceEndpoints) {
       try {
-        const parsed = JSON.parse(binanceTickersText);
-        if (Array.isArray(parsed)) {
-          binanceTickersArray = parsed;
+        const binanceTickersRes = await fetch(endpoint, { 
+          next: { revalidate: 3600 },
+          signal: (AbortSignal as any).timeout(5000) // 5초 타임아웃
+        });
+        if (binanceTickersRes.ok) {
+          const tickers = await binanceTickersRes.json();
+          if (Array.isArray(tickers)) {
+            tickers.forEach((t: any) => binanceTickersMap.set(t.symbol, t));
+            if (binanceTickersMap.size > 0) break;
+          }
         }
       } catch (e) {
-        console.error("Binance tickers parse error", binanceTickersText);
+        console.error(`Binance fetch failed from ${endpoint}:`, e);
       }
-    }
-
-    // 필요한 바이낸스 티커만 맵으로 변환
-    const neededBinanceSymbols = new Set(
-      KIMP_SYMBOLS.map((s) => KIMP_MAPPING[s].binance)
-    );
-    const binanceTickersMap = new Map();
-    if (Array.isArray(binanceTickersArray)) {
-      binanceTickersArray
-        .filter((t: any) => neededBinanceSymbols.has(t.symbol))
-        .forEach((t: any) => binanceTickersMap.set(t.symbol, t));
     }
 
     const kimpData = [];
@@ -68,7 +66,7 @@ export async function GET() {
 
       let binancePrice = 1.0;
       if (!mapping.isStable) {
-        binancePrice = binanceTicker ? parseFloat(binanceTicker.lastPrice) : 0;
+        binancePrice = binanceTicker ? parseFloat(binanceTicker.price || binanceTicker.lastPrice) : 0;
       }
 
       const upbitPrice = upbitTicker?.trade_price || 0;
