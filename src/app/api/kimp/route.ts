@@ -32,24 +32,29 @@ export async function GET() {
       `https://api.binance.com/api/v3/ticker/24hr`,
       { next: { revalidate: 3600 } }
     );
-    if (!binanceTickersRes.ok) throw new Error("Binance API Error");
-    const binanceTickersText = await binanceTickersRes.text();
     let binanceTickersArray: any[] = [];
-    try {
-      binanceTickersArray = JSON.parse(binanceTickersText);
-    } catch (e) {
-      console.error("Binance tickers parse error", binanceTickersText);
+    if (binanceTickersRes.ok) {
+      const binanceTickersText = await binanceTickersRes.text();
+      try {
+        const parsed = JSON.parse(binanceTickersText);
+        if (Array.isArray(parsed)) {
+          binanceTickersArray = parsed;
+        }
+      } catch (e) {
+        console.error("Binance tickers parse error", binanceTickersText);
+      }
     }
 
     // 필요한 바이낸스 티커만 맵으로 변환
     const neededBinanceSymbols = new Set(
       KIMP_SYMBOLS.map((s) => KIMP_MAPPING[s].binance)
     );
-    const binanceTickersMap = new Map(
+    const binanceTickersMap = new Map();
+    if (Array.isArray(binanceTickersArray)) {
       binanceTickersArray
         .filter((t: any) => neededBinanceSymbols.has(t.symbol))
-        .map((t: any) => [t.symbol, t])
-    );
+        .forEach((t: any) => binanceTickersMap.set(t.symbol, t));
+    }
 
     const kimpData = [];
 
