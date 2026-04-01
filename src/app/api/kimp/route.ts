@@ -30,6 +30,7 @@ export async function GET() {
     // 3. 바이낸스 티커 가져오기 (멀티 엔드포인트 지원으로 안정성 강화)
     let binanceTickersMap = new Map();
     const binanceEndpoints = [
+      "https://data-api.binance.vision/api/v3/ticker/price", // Data API (usually fewer blocks)
       "https://api1.binance.com/api/v3/ticker/price",
       "https://api2.binance.com/api/v3/ticker/price",
       "https://api3.binance.com/api/v3/ticker/price",

@@ -191,9 +191,9 @@ export default function KimpTable() {
                         onClick={() => toggleExpand(item.symbol)}
                         className="hover:text-primary transition-colors flex items-center text-left gap-2 group"
                       >
-                        <ChevronRight 
-                          size={14} 
-                          className={`text-muted-foreground/50 group-hover:text-primary transition-transform duration-200 ${isExpanded ? 'rotate-90 text-primary' : ''}`} 
+                        <ChevronRight
+                          size={14}
+                          className={`text-muted-foreground/50 group-hover:text-primary transition-transform duration-200 ${isExpanded ? 'rotate-90 text-primary' : ''}`}
                         />
                         <div className="flex flex-col md:flex-row md:items-center">
                           <span>{item.symbol}</span>
@@ -209,27 +209,32 @@ export default function KimpTable() {
                     <TableCell className="hidden lg:table-cell text-right font-mono text-muted-foreground text-xs md:text-sm">
                       ${item.binancePrice.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                     </TableCell>
-                    <TableCell className={`text-center font-bold text-xs md:text-sm px-2 ${item.kimp > 0 ? 'text-red-500' : 'text-blue-500'}`}>
-                      {item.kimp.toFixed(2)}%
+                    <TableCell className={`text-center font-bold text-xs md:text-sm px-2 ${item.kimp > 0 ? 'text-green-500' : item.kimp < 0 ? 'text-red-500' : ''}`}>
+                      {item.kimp > 0 ? '+' : ''}{item.kimp.toFixed(2)}%
                     </TableCell>
                     <TableCell className="text-center px-2">
-                      <div className={`flex items-center justify-center gap-1 font-semibold text-xs md:text-sm ${item.change24h > 0 ? 'text-red-500' : item.change24h < 0 ? 'text-blue-500' : ''}`}>
+                      <div className={`flex items-center justify-center gap-1 font-semibold text-xs md:text-sm ${item.change24h > 0 ? 'text-green-500' : item.change24h < 0 ? 'text-red-500' : ''}`}>
                         {item.change24h > 0 ? <TrendingUp size={12} /> : item.change24h < 0 ? <TrendingDown size={12} /> : <Minus size={12} />}
-                        {Math.abs(item.change24h).toFixed(2)}%
+                        {item.change24h > 0 ? '+' : ''}{item.change24h.toFixed(2)}%
                       </div>
                     </TableCell>
                     <TableCell className="hidden md:table-cell text-center px-2">
-                      <span className="text-sm font-semibold text-red-500/80">{item.high52Diff.toFixed(2)}%</span>
+                      <span className="text-sm font-semibold text-red-500">{item.high52Diff.toFixed(2)}%</span>
                     </TableCell>
                     <TableCell className="hidden md:table-cell text-center px-2">
-                      <span className="text-sm font-semibold text-blue-500/80">+{item.low52Diff.toFixed(2)}%</span>
+                      <span className="text-sm font-semibold text-green-500">+{item.low52Diff.toFixed(2)}%</span>
                     </TableCell>
                     <TableCell className="hidden sm:table-cell py-2 pr-4 md:pr-6">
                       <div className="flex justify-center h-full items-center">
-                        <SparklineChart
-                          data={item.sparkline}
-                          color={item.kimp > 0 ? '#ef4444' : '#3b82f6'}
-                        />
+                        {(() => {
+                          const isUp = item.sparkline.length > 1 && item.sparkline[item.sparkline.length - 1] >= item.sparkline[0];
+                          return (
+                            <SparklineChart
+                              data={item.sparkline}
+                              color={isUp ? '#22c55e' : '#ef4444'}
+                            />
+                          );
+                        })()}
                       </div>
                     </TableCell>
                   </TableRow>
