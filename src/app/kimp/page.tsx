@@ -22,7 +22,7 @@ export default function KimpPage() {
           <CardHeader className="px-0">
             <CardTitle>Crypto Collectibles</CardTitle>
             <CardDescription>
-              주요 코인+토큰 김프/마프 현황. 갱신주기는 1시간.
+              주요 코인+토큰 김프/마프 현황. 갱신주기 1시간.
             </CardDescription>
           </CardHeader>
           <CardContent className="px-0">

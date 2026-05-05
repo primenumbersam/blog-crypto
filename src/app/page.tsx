@@ -14,9 +14,9 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 const indicatorLinks = [
   // Group 1: BTC Derivative Market
-  { name: "Liquidation (24h)", url: "https://www.coinglass.com/LiquidationData", group: "Derivative" },
-  { name: "Liquidation Map", url: "https://www.coinglass.com/pro/futures/LiquidationMap", group: "Derivative" },
+  { name: "Coinglass Legend (15min)", url: "https://legend.coinglass.com/chart/68fd57c5290449d296c68fd852211501", group: "Derivative" },
   { name: "Liquidation Heatmap", url: "https://www.coinglass.com/pro/futures/LiquidationHeatMap", group: "Derivative" },
+  { name: "Liquidation Map", url: "https://www.coinglass.com/pro/futures/LiquidationMap", group: "Derivative" },
   { name: "Open Interest (24h)", url: "https://www.coinglass.com/BitcoinOpenInterest", group: "Derivative" },
   { name: "Futures Long/Short", url: "https://www.coinglass.com/LongShortRatio", group: "Derivative" },
   { name: "Options Call/Put", url: "https://www.coinglass.com/options", group: "Derivative" },
@@ -50,6 +50,12 @@ export default function Home() {
             </h2>
             <div className="flex gap-2">
               <Link
+                href="/indicators"
+                className={cn(buttonVariants({ variant: "default", size: "sm" }), "flex items-center gap-1")}
+              >
+                <Zap className="w-4 h-4" /> 지표
+              </Link>
+              <Link
                 href="/kimp"
                 className={cn(buttonVariants({ variant: "outline", size: "sm" }), "flex items-center gap-1")}
               >
@@ -69,7 +75,7 @@ export default function Home() {
         {/* 1. Crypto Section */}
         <div className="space-y-4 mb-10">
           <h2 className="text-xl font-bold flex items-center gap-2">
-            <Coins className="w-5 h-5 text-yellow-500" /> 가상자산 후행지표
+            <Coins className="w-5 h-5 text-yellow-500" /> 가상자산 관련지표
           </h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -107,7 +113,7 @@ export default function Home() {
           {/* Derivative Market Links */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2 px-1">
-              <Activity className="w-5 h-5 text-blue-500" /> 파생상품 시장 (Coinglass)
+              <Activity className="w-5 h-5 text-blue-500" /> 파생상품 현황 (Coinglass)
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {derivativeLinks.map((link) => (
@@ -131,7 +137,7 @@ export default function Home() {
           {/* On-chain Metrics Links */}
           <div className="space-y-4">
             <h3 className="text-lg font-semibold flex items-center gap-2 px-1">
-              <ShieldCheck className="w-5 h-5 text-green-500" /> 온체인 분석 (Pro)
+              <ShieldCheck className="w-5 h-5 text-green-500" /> 온체인 시계열 (Coinglass)
             </h3>
             <div className="grid grid-cols-2 gap-3">
               {onChainLinks.map((link) => (

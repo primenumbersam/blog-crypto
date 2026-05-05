@@ -13,7 +13,7 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata = {
-  title: "느좋 코린: 광고 없는 실시간 김프 및 퀀트 지표 대시보드",
+  title: "느좋 코린: 광고 없는 코인시장 현황판",
   description: "느좋 코린: 성공팔이와 보그병신체로부터 자유로운 클린 김치프리미엄 대시보드. 업비트, 바이낸스 실시간 데이터와 퀀트 지표를 투명하게 제공합니다.",
   keywords: ["느좋코린", "김치프리미엄", "코인김프", "실시간김프", "비트코인시세", "퀀트지표", "암호화폐자동화", "gitsam"],
   authors: [{ name: "gitsam", url: "https://gitsam.com" }],
@@ -22,8 +22,8 @@ export const metadata = {
     canonical: "/",
   },
   openGraph: {
-    title: "느좋 코린 - 광고 없이 깨끗한 퀀트 터미널",
-    description: "생각은 깊게, 구현은 쉽게. 주요 투자지표 현황판.",
+    title: "느좋 코린 - 코린이를 위한 광고 없는 깨끗한 퀀트 터미널",
+    description: "생각은 깊게, 구현은 쉽게. 암호화폐 주요 지표 현황판.",
     url: "https://primenumbersam.vercel.app",
     siteName: "느좋 코린",
     images: [

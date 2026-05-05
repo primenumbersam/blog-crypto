@@ -38,8 +38,8 @@ export function TopNav({ exchangeRate: initialExchangeRate }: TopNavProps) {
   const toggleMenu = () => setIsOpen(!isOpen);
 
   const navItems = [
-    { title: "김프", href: "/kimp", icon: LayoutDashboard },
     { title: "지표", href: "/indicators", icon: Globe },
+    { title: "김프", href: "/kimp", icon: LayoutDashboard },
     { title: "뉴스", href: "/news", icon: Newspaper },
   ];
 
